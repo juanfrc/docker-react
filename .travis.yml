@@ -1,0 +1,15 @@
+# Process:
+# Tell travis we need a copy of docker
+# Build our image using Dockerfile.dev
+# Tell travis to run out test suite
+# Tell travis to deploy to aws
+
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t juanfrc/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true juanfrc/docker-react npm run test
